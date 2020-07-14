@@ -6,4 +6,4 @@
 
 [Appunti Guida Logs](guida_appunti_log.md) - Guida log (Appunti della lezione)
 
-[Esercizi MySQL Program](guida_esercizio_mysql_program.md)Esercitazione Guida MySQL Programs
+[Esercizi MySQL Program](guida_esercizio_mysql_program.md) - Esercitazione Guida MySQL Programs
