@@ -10,8 +10,7 @@ shell> mysqlshow --help
 
 
 shell> mysql
-HOSTNAME di default: localhost
-USERNAME: Unix login name
+
 
 shell> mysql --host=localhost --user=root --password=mypwd mysampledb
 
