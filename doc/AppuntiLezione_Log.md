@@ -1,4 +1,4 @@
-
+# Appunti lezione sui logs
 ```
 binlog_ecryption 1 //crittografia 
 ```
