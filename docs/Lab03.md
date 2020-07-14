@@ -1,5 +1,4 @@
-Welcome file
-Welcome file
+
 
 # Binary Log Exercise
 Ripristino temporizzato mediante log binario
