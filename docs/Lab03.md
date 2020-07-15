@@ -52,18 +52,19 @@ Il salvataggio dell'output in un file è utile come preliminare all'esecuzione d
 ```
 shell> mysql -u root -p < tmpfile
 ```
-Se hai più di un log binario da applicare sul server MySQL, il metodo sicuro è quello di elaborarli tutti usando una singola connessione al server. 
-Ecco un esempio che dimostra ciò che potrebbe non essere sicuro :
-```
-NON FARE
-shell> mysqlbinlog binlog.000001 | mysql -u root -p # DANGER!!
-shell> mysqlbinlog binlog.000002 | mysql -u root -p # DANGER!!
-```
+>Se hai più di un log binario da applicare sul server MySQL, il metodo sicuro è quello di elaborarli tutti usando una singola connessione al server. 
+>Ecco un esempio che dimostra ciò che potrebbe non essere sicuro :
+>```
+>NON FARE
+>shell> mysqlbinlog binlog.000001 | mysql -u root -p # DANGER!!
+>shell> mysqlbinlog binlog.000002 | mysql -u root -p # DANGER!!
+>```
 
-L'elaborazione dei logs binari in questo modo utilizzando connessioni diverse al server causa problemi se il primo file di log contiene 
-un'istruzione CREATE TEMPORARY TABLE e il secondo log contiene un'istruzione che utilizza la tabella temporanea. 
-Al termine del primo processo mysql , il server elimina la tabella temporanea. 
-Quando il secondo processo mysql tenta di utilizzare la tabella, il server segnala " tabella sconosciuta. ”
+>### IMPORTANTE DA LEGGERE
+>L'elaborazione dei logs binari in questo modo utilizzando connessioni diverse al server causa problemi se il primo file di log contiene 
+>un'istruzione CREATE TEMPORARY TABLE e il secondo log contiene un'istruzione che utilizza la tabella temporanea. 
+>Al termine del primo processo mysql , il server elimina la tabella temporanea. 
+>Quando il secondo processo mysql tenta di utilizzare la tabella, il server segnala " tabella sconosciuta. ”
 Per evitare problemi come questo, utilizzare una singola connessione per applicare il contenuto di tutti i file di log binari che si desidera elaborare. 
 Ecco un modo per farlo:
 ```
