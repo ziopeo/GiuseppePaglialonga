@@ -1,9 +1,8 @@
-[Lab01](Lab01.md) Hands-On MySQL 8.0
+[Lab01 Hands-On MySQL 8.0](Lab01.md) 
 
-[Lab02](Lab02.md) Hands-On MySQL 8.0
+[Lab02 Hands-On MySQL 8.0](Lab02.md) 
 
-[Lab03](Lab03.md) Hands-On MySQL 8.0
-
+[Lab03 Hands-On MySQL 8.0](Lab03.md) 
 
 ***
 [Appunti Guida Logs](guida_appunti_log.md) - Guida log (Appunti della lezione)
