@@ -1,8 +1,8 @@
-[Lab01](Lab01.md) - Hands-On MySQL 8.0 - 1
+[Lab01](Lab01.md) Hands-On MySQL 8.0
 
-[Lab02](Lab02.md) - Hands-On MySQL 8.0 - 2
+[Lab02](Lab02.md) Hands-On MySQL 8.0
 
-[Lab03](Lab03.md) - Hands-On MySQL 8.0 - 3
+[Lab03](Lab03.md) Hands-On MySQL 8.0
 
 
 ***
