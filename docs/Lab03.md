@@ -1,6 +1,9 @@
+# Lab03 Hands-On MySQL 8.0
 
 
-# Binary Log Exercise
+
+
+### Binary Log Exercise
 Ripristino temporizzato mediante log binario
 
 >Nota
