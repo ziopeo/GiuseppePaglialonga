@@ -77,8 +77,9 @@ Altre distribuzioni
 >Tutti file di configurazione(come my.cnf): /etc/mysql
 >Data-Directory: /var/lib/mysql
 >Tutti i file binari, le librerie, gli headers, ecc. Sono sotto `/usr/bin`e `/usr/sbin`
+### Reimpostare i permessi della datadirectory
 ```
-  $ sudo ls /var/lib/mysql
+  $ sudo chmod 750 -R /var/lib/mysql
 ```
 #### Mettere in sicurezza l'installazione
 ```
@@ -113,7 +114,7 @@ Flush dei permessi per rendere effettive le modiche
 
 Aggiunta del nostro user al gruppo mysql per poter accedere alla Data-Directory
 ```
-  $ sudo usermod -g mysql student
+  $ sudo usermod -G mysql student
 ```
 
 Effettuiamo il logout per rendere effettive le modifiche
