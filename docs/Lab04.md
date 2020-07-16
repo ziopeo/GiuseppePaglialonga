@@ -26,8 +26,12 @@ SET  GLOBAL optimizer_switch='';
 ```
 
 ```
-mysql>  CREATE  TABLE t1(a INT);  mysql>  CREATE  TABLE t2(a INT);  
+mysql>  CREATE  TABLE t1(a INT);  
 ```
+
+```
+mysql>  CREATE  TABLE t2(a INT);  
+
 
 ```
 mysql>  INSERT  INTO t1 VALUES  ROW(1),  ROW(2),  ROW(3),  ROW(4);  
@@ -37,7 +41,7 @@ mysql>  INSERT  INTO t1 VALUES  ROW(1),  ROW(2),  ROW(3),  ROW(4);
 mysql>  INSERT  INTO t2 VALUES  ROW(1),  ROW(2);  
 ```
 ```
-mysql>  SELECT  *  FROM t1 ->  WHERE t1.a >  (SELECT  COUNT(a)  FROM t2);
+mysql>  SELECT  *  FROM t1  WHERE t1.a >  (SELECT  COUNT(a)  FROM t2);
 ```
 ```
 mysql>  SELECT  @@optimizer_switch  LIKE  '%subquery_to_derived=off%';
