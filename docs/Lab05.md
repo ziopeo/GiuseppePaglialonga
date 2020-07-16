@@ -65,11 +65,11 @@ mysql>CREATE USER 'replication_user'@'indirizzo_ip_del_vostro_slave_nodo' IDENTI
 ```
 Diamo i privilegi
 ```
-mysql> GRANT ALL PRIVILEGES ON myapp.* TO 'replication_user'@'indirizzo_ip_del_vostro_slave_nodo'
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'replication_user'@'indirizzo_ip_del_vostro_slave_nodo'
 ```
 Diamo i privilegi per la replica
 ```
-mysql> GRANT REPLICATION SLAVE ON myapp.* TO 'replication_user'@'indirizzo_ip_del_vostro_slave_nodo'
+mysql> GRANT REPLICATION SLAVE ON *.* TO 'replication_user'@'indirizzo_ip_del_vostro_slave_nodo'
 ```
 Flush dei privilegi
 ```
