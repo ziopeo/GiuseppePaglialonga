@@ -111,6 +111,12 @@ Creiamo il database che ospitera il il dump della tabella estratta da MASTER
 ``` 
 shell>mysql -u studente -p -e="CREATE DATABASE myapp";
 ```
+
+sostituire il nome del db dumpato dal MASTER con il nome del proprio file
+``` 
+shell>mysql -u studente < dbdumpmaster.sql;
+```
+
 Modifichiamo il file di configurazione 
 ```
 shell> nano /etc/mysql/mysql.conf.d/mysqld.cnf
@@ -132,7 +138,8 @@ Riavviare il server MySQL
  mysql> CHANGE MASTER TO MASTER_HOST='indirizzoipdelserverMASTER', MASTER_USER='replication_user', MASTER_PASSWORD='password', MASTER_LOG_FILE='binlog_annotato0001.log', MASTER_LOG_POS=num_position_binary;
  ```
  ```
- mysql>START SLAVE;
+
+mysql>START SLAVE;
  ```
  ```
  mysql> SHOW SLAVE STATUS;
