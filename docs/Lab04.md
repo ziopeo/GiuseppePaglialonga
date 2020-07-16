@@ -31,7 +31,7 @@ mysql>  CREATE  TABLE t1(a INT);
 
 ```
 mysql>  CREATE  TABLE t2(a INT);  
-
+```
 
 ```
 mysql>  INSERT  INTO t1 VALUES  ROW(1),  ROW(2),  ROW(3),  ROW(4);  
