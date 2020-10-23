@@ -94,7 +94,7 @@ A "Disable root login remotely" scriviamo Y
 #### Accesso al server MySQL
 
 ```
-   $ sudo mysqld_safe 
+   $ sudo mysql 
 ```
 #### Creazione dell'utente
 Procediamo ora alla creazione di un nuovo utente:
@@ -108,6 +108,11 @@ Assegniamo i permessi di accesso al nuovo studente:
 Flush dei permessi per rendere effettive le modiche
 ```
    mysql> FLUSH PRIVILEGES;
+```
+
+Usciamo
+```
+   mysql> exit;
 ```
 
 
@@ -129,9 +134,7 @@ Usiamo l'applicazione mysqladmin fornita nel pacchetto.
 ```
 	$ mysqladmin -u studente -p version
 ```
-```
-	$ mysqladmin -u studente -p variables
-```
+
 Help di mysqladmin:
 ```
 	$ mysqladmin -u studente -p --help
@@ -192,11 +195,16 @@ https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/
 
 #### Prepariamo l'aggiornamento che effettueremo usando MySQL Apt Repository
 ```
-  $ mysqlcheck -u root -p --all-databases --check-upgrade
+  $ mysqlcheck -u studente -p --all-databases --check-upgrade
 ```
 Verifichiamo che l'output sia ok
 ***
+
+```
+	$ mysql -u studente -p
+```
 Verifichiamo che non ci siano tabelle che non supportano il native partitioning
+
 ```
 SELECT TABLE_SCHEMA, TABLE_NAME
 FROM INFORMATION_SCHEMA.TABLES
@@ -226,10 +234,13 @@ Posizionamoci nella home
 ```
   $ cd
 ```
-\
+
 Creiamo una cartella "aggiornamento"
 ```
   $ mkdir aggiornamento
+```
+```
+  $ cd
 ```
 
 >Installeremo MySQL tramite MySQL Apt Repository
@@ -312,7 +323,7 @@ mysql> LOAD DATA LOCAL INFILE '/path/pet.txt' INTO TABLE pet;
 ```
 mysql> INSERT INTO pet VALUES ('Puffball','Diane','hamster','f','1999-03-30',NULL);
 ```
-Creaiamone una 10ina random per popolare il database
+Creaiamo una 10ina di record random per popolare il database
 ```
 mysql>UPDATE pet SET birth = '2009-08-31' WHERE name = 'Puffball';
 ```
