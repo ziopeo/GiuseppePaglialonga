@@ -81,6 +81,10 @@ Altre distribuzioni
 ```
   $ sudo chmod 750 -R /var/lib/mysql
 ```
+Aggiunta del nostro user al gruppo mysql per poter accedere alla Data-Directory
+```
+  $ sudo usermod -G mysql student
+```
 #### Mettere in sicurezza l'installazione
 ```
   $ sudo mysql_secure_installation
@@ -96,9 +100,7 @@ A "Disable root login remotely" scriviamo Y
 ```
    $ sudo mysql
 ```
-```
-   $ mysql -u root
-```
+
 #### Creazione dell'utente
 Procediamo ora alla creazione di un nuovo utente:
 ```
@@ -159,6 +161,10 @@ Cambiamo la password per l'utente root
 ```
 	$ mysql -u studente -p 
 ```
+```
+	mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'; 
+```
+Se installeremo la versione di mysql 8 dobbiamo usare:
 ```
 	mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'; 
 ```
