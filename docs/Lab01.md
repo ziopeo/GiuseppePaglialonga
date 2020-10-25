@@ -91,10 +91,13 @@ A "Remove anonymous users" scriviamo Y
 A "Disable root login remotely" scriviamo Y
 
 ***
-#### Accesso al server MySQL
+#### Avvio e accesso al server MySQL
 
 ```
-   $ sudo mysql 
+   $ sudo mysql
+```
+```
+   $ mysql -u root
 ```
 #### Creazione dell'utente
 Procediamo ora alla creazione di un nuovo utente:
@@ -151,6 +154,22 @@ Verifica veloce dei dati esistenti nella base di dati
 	$ mysql -u studente -p -e  "SELECT User, Host, plugin FROM mysql.user" mysql
 ```
 ***
+Cambiamo la password per l'utente root
+
+```
+	$ mysql -u studente -p 
+```
+```
+	mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'; 
+```
+```
+	mysql> FLUSH PRIVILEGES;
+```
+```
+	mysql> exit;
+```
+
+****
 Verifica arresto MySQL
 
 ```
@@ -240,7 +259,7 @@ Creiamo una cartella "aggiornamento"
   $ mkdir aggiornamento
 ```
 ```
-  $ cd
+  $ cd aggiornamento
 ```
 
 >Installeremo MySQL tramite MySQL Apt Repository
