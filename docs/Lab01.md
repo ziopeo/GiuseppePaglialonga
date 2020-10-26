@@ -106,7 +106,7 @@ Procediamo ora alla creazione di un nuovo utente:
 ```
    mysql> CREATE USER 'studente'@'localhost' IDENTIFIED BY 'password';
 ```
-Assegniamo i permessi di accesso al nuovo studente:
+Assegniamo i permessi di accesso al nuovo utente studente:
 ```
    mysql> GRANT ALL PRIVILEGES ON * . * TO 'studente'@'localhost';
 ```
@@ -120,12 +120,6 @@ Usciamo
    mysql> exit;
 ```
 
-
-
-Aggiunta del nostro user al gruppo mysql per poter accedere alla Data-Directory
-```
-  $ sudo usermod -G mysql student
-```
 
 Effettuiamo il logout per rendere effettive le modifiche
 ```
@@ -166,7 +160,7 @@ Cambiamo la password per l'utente root
 ```
 Se installeremo la versione di mysql 8 dobbiamo usare:
 ```
-	mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'; 
+	mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'password'; 
 ```
 ```
 	mysql> FLUSH PRIVILEGES;
@@ -474,5 +468,13 @@ INSERT INTO animals (id,name) VALUES(100,'rabbit');
 INSERT INTO animals (id,name) VALUES(NULL,'mouse');
 SELECT * FROM animals;
 ```
+
+***
+Si progetti lo schema Entità-Relazione di una base di dati in cui si vogliono memorizzare le seguenti informazioni relative ad una agenzia di viaggio che organizza gite turistiche.
+Ogni gita ha un codice, un responsabile (di cui si vuole memorizzare il recapito), una data di partenza
+ed un elenco di partecipanti (di cui si vuole memorizzare nome, data di nascita, età e uno o più numeri di telefono), ed inoltre fa riferimento ad un itinerario.
+Di ogni itinerario si vuole memorizzare una durata, un prezzo ed un elenco delle tappe, corrispondenti alle località visitate (con durata del soggiorno in ogni località). Le tappe sono caratterizzate da un nome ed una descrizione.
+***
+
 
 
