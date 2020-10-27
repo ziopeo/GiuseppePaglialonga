@@ -7,6 +7,7 @@ mysql> SHOW TABLES;
 Empty set (0.00 sec)
 ```
 
+
 ```
 mysql> CREATE TABLE pet (name VARCHAR(20), owner VARCHAR(20),
        species VARCHAR(20), sex CHAR(1), birth DATE, death DATE);
@@ -21,7 +22,10 @@ mysql> SHOW TABLES;
 +---------------------+
 ```
 
+```
+mysql> SHOW CREATE TABLES pet;
 
+```
 
 ```
 mysql> DESCRIBE pet;
@@ -58,7 +62,7 @@ mysql> SELECT * FROM pet;
 
 
 ```
-mysql> DELETE FROM pet;
+mysql> DELETE FROM pet where name LIKE 'Slim';
 ```
 
 Al posto di Bower usare un nome presente nella propria base di dati
@@ -111,29 +115,6 @@ DISTICT è il comando che serve per ottenere un singolo risultato in caso di dup
 mysql> SELECT DISTINCT owner FROM pet;
 
 ```
-
-
-```
-mysql> SELECT name, species, birth FROM pet
-       WHERE species = 'dog' OR species = 'cat';
-```
-
-
-```
-mysql> SELECT name, birth FROM pet ORDER BY birth;
-```
-
-
-```
-mysql> SELECT name, birth FROM pet ORDER BY birth DESC;
-```
-
-
-```
-mysql> SELECT name, species, birth FROM pet
-       ORDER BY species, birth DESC;
-```
-
 
 ```
 mysql> SELECT name, birth, CURDATE(),
@@ -264,107 +245,6 @@ mysql> SELECT species, sex, COUNT(*) FROM pet
 ```
 
 
-```
-SELECT MAX(birth) AS young FROM pet;
-```
-
-Variabili d'ambiente
-```
-mysql> SELECT @old_pet:=MIN(birth),@young_pet:=MAX(birth) FROM pet;
-```
-
-
-Inserimento di chiavi esterne
-
-```
-CREATE TABLE person (
-    id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    name CHAR(60) NOT NULL,
-    PRIMARY KEY (id)
-);
-```
-
-
-```
-CREATE TABLE shirt (
-    id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    style ENUM('t-shirt', 'polo', 'dress') NOT NULL,
-    color ENUM('red', 'blue', 'orange', 'white', 'black') NOT NULL,
-    owner SMALLINT UNSIGNED NOT NULL REFERENCES person(id),
-    PRIMARY KEY (id)
-);
-```
-
-
-```
-INSERT INTO person VALUES (NULL, 'Antonio Paz');
-```
-
-
-```
-SELECT @last := LAST_INSERT_ID();
-```
-
-
-```
-INSERT INTO shirt VALUES
-(NULL, 'polo', 'blue', @last),
-(NULL, 'dress', 'white', @last),
-(NULL, 't-shirt', 'blue', @last);
-```
-
-
-```
-INSERT INTO person VALUES (NULL, 'Lilliana Angelovska');
-```
-
-
-```
-INSERT INTO shirt VALUES
-(NULL, 'dress', 'orange', @last),
-(NULL, 'polo', 'red', @last),
-(NULL, 'dress', 'blue', @last),
-(NULL, 't-shirt', 'white', @last);
-```
-
-
-```
-SELECT * FROM person;
-```
-
-
-```
-SELECT * FROM shirt;
-```
-
-
-```
-SELECT s.* FROM person p INNER JOIN shirt s
-   ON s.owner = p.id
- WHERE p.name LIKE 'Lilliana%'
-   AND s.color <> 'white';
-```
-
-AUTO-INCREMENT
-```
-CREATE TABLE animals (
-     id MEDIUMINT NOT NULL AUTO_INCREMENT,
-     name CHAR(30) NOT NULL,
-     PRIMARY KEY (id)
-);
-```
-
-
-```
-INSERT INTO animals (name) VALUES
-    ('dog'),('cat'),('penguin'),
-    ('lax'),('whale'),('ostrich');
-```
-
-
-```
-SELECT * FROM animals;
-```
 
 Per iniziare con un AUTO_INCREMENTvalore diverso da 1, impostare quel valore con CREATE TABLE o ALTER TABLE, 
 ```
@@ -373,7 +253,7 @@ mysql> ALTER TABLE tbl AUTO_INCREMENT = 100;
 ***
 
 Il server MySQL ha alcune opzioni di comando che possono essere specificate solo all'avvio e una serie di variabili di sistema, alcune delle quali possono essere impostate all'avvio, in fase di esecuzione o in entrambi.
-Set variabile di sistema general_log
+Set variabile di sistema general_log (abilita i
 ```
 SET GLOBAL general_log = ON;
 SELECT @@GLOBAL.general_log;
@@ -423,6 +303,124 @@ shell> mysql_config_editor remove --login-path=mysql
 ```
 shell> mysql_config_editor print --all
 ```
+
+***
+
+### Guida e esercizi MySQL Programs
+
+Uso:
+  mysql [OPTIONS] [database]
+```
+shell> mysql --verbose --help
+shell> mysql --user=root --password=******** mysampledb
+shell> mysqldump -u root personnel
+shell> mysqlshow --help
+```
+```
+shell> mysql
+```
+```
+shell> mysql --host=localhost --user=root --password=mypwd mysampledb
+```
+
+un suffisso  K, M o G a
+indica un moltiplicatore di 1.024 con lettere minuscole o maiuscole.
+
+Considera quanto segue
+esempio in cui il comando dice al programma mysqladmin di eseguire il ping
+server 1.024 volte e sospensione per 10 secondi per ogni ping:
+```
+shell> mysqladmin --count=1k --sleep=10 ping
+```
+
+Ordine di lettura PATH Option File
+/etc/my.cnf
+/etc/mysql/my.cnf
+SYSCONFDIR/my.cnf
+$MYSQL_HOME/my.cnf (server program only)
+The file specified with --defaults-extra-file, if any
+~/.my.cnf for user-specific options
+~/.mylogin.cnf for user-specific login path options (client program only)
+
+
+```
+shell> mysql --max_allowed_packet=16M
+mysql> SET GLOBAL max_allowed_packet=16*1024*1024;
+mysql> show variables like 'max%';
+```
+
+Mysql logging
+
+  $ cd
+  $ nano .mysql_history
+  
+  $ sudo nano /var/log/message
+
+
+
+
+
+Sintassi mysqladmin
+```
+shell> mysqladmin [options] command [command-arg] [command [command-org]]
+
+Comandi:  
+ create db_name 
+ debug
+ drop db_name 
+ password new_password (per una nuova password)
+ shutdown
+ start-slave
+ stop-slave
+ status
+```
+
+Sintassi mysqlcheck
+```
+shell> mysqlcheck [options] db_name [tbl_name ...]
+shell> mysqlcheck [options] --databases db_name ...
+shell> mysqlcheck [options] --all-databases
+mysqlcheck --help
+
+{ CHECK TABLE, REPAIR TABLE, ANALYZE TABLE, OPTIMIZE TABLE }
+```
+
+
+Sintassi mysqldump
+```
+shell> mysqldump [options] db_name [tbl_name ...]
+shell> mysqldump [options] --databases db_name ...
+shell> mysqldump [options] --all-databases
+```
+
+Sintassi mysqlimport
+```
+shell> mysqlimport [options] db_name textfile1 [textfile2 ...]
+mysqlimport --help
+```
+
+
+Sintassi mysqlslap 
+  ```
+  shell> mysqlslap [options]
+```
+
+Creaiamo una simulazione:
+Creaiamo una tabella con un unico attributo (int i) e inseriamo il valore 21.
+Effettuiamo poi una SELECT con 20 client e ripetiamo il tutto per 100 iterazioni.
+
+```
+  mysqlslap --delimiter=";" --create="CREATE TABLE t (i int);INSERT INTO t VALUES (21)" --query="SELECT * FROM t" --concurrency=20 --iterations=100
+```
+
+Simulazione creazione attributi(colonne) delle tabelle
+```
+mysqlslap --concurrency=7 --iterations=20 --number-int-cols=2 --numberchar-cols=2 --auto-generate-sql
+```
+
+
+
+
 ***
 
 ## mysqlbinlog
@@ -560,13 +558,6 @@ REVOKE INSERT,UPDATE,DELETE
 ```
 DROP USER 'finley'@'localhost';
 ```
-
->Account riservati
->Una parte del processo di installazione di MySQL è l'inizializzazione della directory dei dati (vedere Sezione 2.10.1, "Inizializzazione della directory dei dati" ). Durante l'inizializzazione della directory dei dati, MySQL crea account utente che devono essere considerati riservati: 'root'@'localhost: Utilizzato a fini amministrativi. Questo account ha tutti i privilegi, è un account di sistema e può eseguire qualsiasi operazione.
->A rigor di termini, questo nome account non è riservato, nel senso che alcune installazioni rinominano l' rootaccount in qualcos'altro per evitare di esporre un account altamente privilegiato con un nome noto.
->'mysql.sys'@'localhost': Utilizzato come DEFINERper gli sysoggetti dello schema. L'uso mysql.sysdell'account evita problemi che si verificano se un DBA rinomina o rimuove l' root account. Questo account è bloccato in modo che non possa essere utilizzato per le connessioni client.
->'mysql.session'@'localhost': Utilizzato internamente dai plugin per accedere al server. Questo account è bloccato in modo che non possa essere utilizzato per le connessioni client. L'account è un account di sistema.
->'mysql.infoschema'@'localhost': Usato come DEFINERper le INFORMATION_SCHEMAviste. L'uso mysql.infoschemadell'account evita i problemi che si verificano se un DBA rinomina o rimuove l'account root. Questo account è bloccato in modo che non possa essere utilizzato per le connessioni client.
 
 
 
