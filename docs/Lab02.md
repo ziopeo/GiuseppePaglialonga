@@ -1,18 +1,6 @@
  # Lab02 Hands-On MySQL 8.0
 
 
-
-```
-mysql> SHOW TABLES;
-Empty set (0.00 sec)
-```
-
-
-```
-mysql> CREATE TABLE pet (name VARCHAR(20), owner VARCHAR(20),
-       species VARCHAR(20), sex CHAR(1), birth DATE, death DATE);
-```
-
 ```
 mysql> SHOW TABLES;
 +---------------------+
@@ -259,10 +247,6 @@ SET GLOBAL general_log = ON;
 SELECT @@GLOBAL.general_log;
 ```
 
-Il comando seguente dice a mysqladmin di eseguire il ping del server 1024 volte, dormendo 10 secondi tra ogni ping:
-```
-mysqladmin --count=1K --sleep=10 ping
-```
 
 Passiamo le istruzioni SQL da linea di comando
 ```
@@ -315,10 +299,9 @@ shell> mysql --verbose --help
 shell> mysql --user=root --password=******** mysampledb
 shell> mysqldump -u root personnel
 shell> mysqlshow --help
+shell> mysqld_safe --verbose --help
 ```
-```
-shell> mysql
-```
+
 ```
 shell> mysql --host=localhost --user=root --password=mypwd mysampledb
 ```
